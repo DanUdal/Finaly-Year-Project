@@ -45,7 +45,7 @@ public class GameController : MonoBehaviour {
 	}
 
 	public void endGame() {
-		SceneManager.MoveGameObjectToScene (gameObject, menuScene);
+        SceneManager.LoadSceneAsync("MainMenu");
 		SceneManager.UnloadSceneAsync ("Song");
 	}
 }
