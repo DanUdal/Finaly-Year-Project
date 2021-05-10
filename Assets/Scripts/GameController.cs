@@ -8,7 +8,7 @@ using Melanchall.DryWetMidi.Interaction;
 
 public class GameController : MonoBehaviour {
 
-	public float timer = -5.0f; //set timer to 5 seconds earlier than the song so that blocks spawn 5 seconds in advance of their strike time
+	public float timer = -6.0f; //set timer to 5 seconds earlier than the song so that blocks spawn 5 seconds in advance of their strike time
 	[SerializeField]
 	Scene menuScene;
 	[SerializeField]
@@ -17,10 +17,11 @@ public class GameController : MonoBehaviour {
 	ProjeectileSpawner spawner;
 	ICollection<ITimedObject> notes;
 	List<Note> notesToRemove;
+	public static string songName;
 
 	// Use this for initialization
 	void Start () {
-		var midiFile = MidiFile.Read("song.mid");
+		var midiFile = MidiFile.Read(songName +".mid");
 		ChunksCollection chunks = midiFile.Chunks;
 		notes = GetObjectsUtilities.GetObjects(midiFile, ObjectType.Note);
 		int size = notes.Count;
