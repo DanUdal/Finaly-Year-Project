@@ -12,6 +12,10 @@ public class GunController : MonoBehaviour
     bool reloading = false;
     SteamVR_Action_Boolean fire;
     SteamVR_Action_Boolean reloadGun;
+    [SerializeField]
+    GameObject[] ammoLights;
+    Material light;
+    Material dark;
 
     // Start is called before the first frame update
     void Start()
