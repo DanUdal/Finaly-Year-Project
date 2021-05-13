@@ -20,11 +20,12 @@ public class PlayerController : MonoBehaviour {
 		}
 	}
 
-	void OnCollisionEnter(Collision collision) {
+	void OnTriggerEnter(Collider collision) {
 		if (collision.gameObject.tag == "Asteroid") 
 		{
 			health -= 1;
 			Destroy (collision.gameObject);
+            Debug.Log("ow");
 		}
 	}
 }

@@ -19,6 +19,8 @@ public class MainMenu : MonoBehaviour
 			Transform instance = Instantiate(button.GetComponent<Transform>(), gameObject.GetComponent<Transform>());
 			instance.position = new Vector3(0, 3.33f - (1.35f * i), 7);
 			instance.gameObject.GetComponent<ButtonPress>().songName = wavs[i].name;
+            Text name = instance.GetChild(0).gameObject.GetComponent<Text>();
+            name.text = wavs[i].name;
 		}
 		
     }

@@ -11,7 +11,10 @@ GameObject:
   - component: {fileID: 2080820993035517885}
   - component: {fileID: 1172946003740497167}
   - component: {fileID: 2103145593769195657}
+  - component: {fileID: 114969409703551470}
   - component: {fileID: 7081166704802703411}
+  - component: {fileID: 1574978170854442450}
+  - component: {fileID: 5438538704396269696}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -74,6 +77,19 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
+--- !u!114 &114969409703551470
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 420740857602724849}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57400a1244797c443ac8d34732e1b4de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  songName: 
 --- !u!114 &7081166704802703411
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -94,7 +110,7 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_NormalColor: {r: 1, g: 0, b: 0.8873906, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
@@ -114,6 +130,34 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1574978170854442450
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 420740857602724849}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -900027084, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
+  m_EffectDistance: {x: 2, y: 2}
+  m_UseGraphicAlpha: 1
+--- !u!65 &5438538704396269696
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 420740857602724849}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 161.58325, y: 28.470806, z: 1.1482178}
+  m_Center: {x: 0.6628418, y: 0.11148691, z: -0.0741089}
 --- !u!1 &5810910675470574805
 GameObject:
   m_ObjectHideFlags: 0

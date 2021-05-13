@@ -7,11 +7,16 @@ using Valve.VR.Extras;
 
 public class UISelect : MonoBehaviour
 {
-	public SteamVR_LaserPointer pointer;
+    public SteamVR_LaserPointer pointer;
     // Start is called before the first frame update
+    void Awake()
+    {
+        pointer.PointerClick += PointerClick;
+    }
+
     void Start()
     {
-		pointer.PointerClick += onClick;
+		
     }
 
     // Update is called once per frame
@@ -20,7 +25,7 @@ public class UISelect : MonoBehaviour
         
     }
 
-	public void onClick(object sender, PointerEventArgs e)
+    public void PointerClick(object sender, PointerEventArgs e)
 	{
 		Button button = e.target.GetComponent<Button>();
 		if (button != null)

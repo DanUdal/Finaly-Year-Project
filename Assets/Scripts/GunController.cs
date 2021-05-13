@@ -13,8 +13,10 @@ public class GunController : MonoBehaviour
     SteamVR_Action_Boolean fire;
     SteamVR_Action_Boolean reloadGun;
     [SerializeField]
-    GameObject[] ammoLights;
+    Renderer[] ammoLights;
+    [SerializeField]
     Material light;
+    [SerializeField]
     Material dark;
 
     // Start is called before the first frame update
@@ -29,15 +31,7 @@ public class GunController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        /*if ((SteamVR_Input._default.inActions.GrabPinch.GetStateDown(SteamVR_Input_Sources.any)) && (ammo != 0) && (!reloading))
-        {
-            Transform instance = Instantiate(bullet.GetComponent<Transform>(), gameObject.GetComponent<Transform>());
-            ammo -= 1;
-        }
-        if (SteamVR_Input._default.inActions.GrabGrip.GetStateDown(SteamVR_Input_Sources.any))
-        {
-            StartCoroutine(reload);
-        }*/
+        
     }
 
     void startReload(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource)
@@ -49,7 +43,11 @@ public class GunController : MonoBehaviour
     IEnumerator reload()
     {
         reloading = true;
-        yield return new WaitForSeconds(2.0f);
+        for (int i = 0; i < 6; i++)
+        {
+            ammoLights[i].material = light;
+            yield return new WaitForSeconds(0.33f);
+        }
         ammo = 6;
         reloading = false;
     }
@@ -58,8 +56,11 @@ public class GunController : MonoBehaviour
     {
         if ((ammo != 0) && (!reloading))
         {
-            Transform instance = Instantiate(bullet.GetComponent<Transform>(), gameObject.GetComponent<Transform>());
+            Transform instance = Instantiate(bullet.GetComponent<Transform>(), gameObject.GetComponent<Transform>().position, gameObject.GetComponent<Transform>().rotation);
+            instance.Rotate(new Vector3(90, 90, 0));
+            instance.Translate(new Vector3(0, 1.3f, 0));
             ammo -= 1;
+            ammoLights[ammo].material = dark;
         }
     }
 }

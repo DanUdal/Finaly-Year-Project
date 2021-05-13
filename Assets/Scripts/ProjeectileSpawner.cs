@@ -20,7 +20,8 @@ public class ProjeectileSpawner : MonoBehaviour {
 	}
 
 	public void spawnBlock(float note, float octave, float timer) {
-		Transform blockInstance = Instantiate(block.GetComponent<Transform>(), gameObject.GetComponent<Transform>());
+		Transform blockInstance = Instantiate(block.GetComponent<Transform>(), gameObject.GetComponent<Transform>().position, Quaternion.identity);
+        blockInstance.LookAt(gameObject.GetComponent<Transform>());
 		float octSig = (100 / (1 + Mathf.Exp(0.07f * (32 - octave)))) - 10;
 		float noteSig = (410 / (1 + Mathf.Exp(0.07f * (32 - note)))) - 50;
 		blockInstance.position = new Vector3 (distance * Mathf.Sin (1 - octSig) * Mathf.Cos (noteSig),
