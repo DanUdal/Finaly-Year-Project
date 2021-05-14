@@ -33,7 +33,7 @@ public class ProjeectileSpawner : MonoBehaviour
 		Vector3 spawnPosition = new Vector3(((note - 60) * 0.1f), 10, 10);
 
 		GameObject noteObject = GameObject.Instantiate(notePrefab, spawnPosition, Quaternion.identity, noteFolder);
-		DebugNote noteScript = noteObject.GetComponent<DebugNote>();
+		Asteroid noteScript = noteObject.GetComponent<Asteroid>();
 
 		noteScript.Initialise(spawnPosition, note, octave);
 	}

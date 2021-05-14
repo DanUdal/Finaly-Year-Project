@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DebugNote : MonoBehaviour
+public class Asteroid : MonoBehaviour
 {
     [SerializeField] private AnimationCurve yAxisAnimationCurve;
     [SerializeField] private AnimationCurve zAxisAnimationCurve;
@@ -27,7 +27,7 @@ public class DebugNote : MonoBehaviour
 
         _spawnPosition = spawnPosition;
 
-        StartCoroutine(PlayNoteSound());
+        StartCoroutine(NoteTrigger());
         StartCoroutine(KillNote());
     }
 
@@ -60,20 +60,25 @@ public class DebugNote : MonoBehaviour
         float lifeTime = 0;
         while (Application.isPlaying)
         {
-            Vector3 offset = new Vector3(0, yAxisAnimationCurve.Evaluate(lifeTime), zAxisAnimationCurve.Evaluate(lifeTime));
+            Vector3 position = new Vector3(_spawnPosition.x, yAxisAnimationCurve.Evaluate(lifeTime), zAxisAnimationCurve.Evaluate(lifeTime));
 
-            _transform.position = _spawnPosition + offset;
+            _transform.position = position;
 
             lifeTime += Time.deltaTime;
             yield return null;
         }
     }
 
-    private IEnumerator PlayNoteSound()
+    private IEnumerator NoteTrigger()
     {
         yield return new WaitForSeconds(ProjeectileSpawner.NoteDelay);
 
-        // play note sound
+        MeshRenderer meshRenderer = GetComponent<MeshRenderer>();
+        Material material = new Material(meshRenderer.material);
+
+        material.color = Color.black;
+
+        meshRenderer.material = material;
     }
 
     private IEnumerator KillNote()
