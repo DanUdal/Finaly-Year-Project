@@ -6,22 +6,84 @@ using Melanchall.DryWetMidi.Common;
 using Melanchall.DryWetMidi.Core;
 using Melanchall.DryWetMidi.Interaction;
 
-public class GameController : MonoBehaviour {
+public class GameController : MonoBehaviour 
+{
+    public static readonly float TimeStepScaler = 277.4667557f;
 
-	public float timer = -6.0f; //set timer to 5 seconds earlier than the song so that blocks spawn 5 seconds in advance of their strike time
-	[SerializeField]
-	Scene menuScene;
-	[SerializeField]
-	Scene gameScene;
-	[SerializeField]
-	ProjeectileSpawner spawner;
-	ICollection<ITimedObject> notes;
+	[SerializeField] private Scene menuScene;
+	[SerializeField] private Scene gameScene;
+    [SerializeField] private AudioSource source;
+    [SerializeField] private ProjeectileSpawner spawner;
+
+    private IEnumerable<ITimedObject> notes;
+
 	List<Note> notesToRemove = new List<Note>();
-    public static string songName;
-    [SerializeField]
-    AudioSource source;
+    [HideInInspector] public static string songName;
+    
     AudioClip clip;
 
+
+
+
+    private void Awake()
+    {
+        var midiFile = MidiFile.Read("Assets/Resources/Songs/" + songName + ".mid");
+
+        if (midiFile != null)
+        {
+            notes = GetObjectsUtilities.GetObjects(midiFile, ObjectType.Note);
+            clip = Resources.Load<AudioClip>("Songs/" + songName);
+
+            StartSong();
+        }
+        else
+        {
+            Debug.Log("Midi file not found");
+        }
+    }
+
+
+
+
+
+    private void StartSong()
+    {
+        StartCoroutine(SpawnMidiNotes());
+        //StartCoroutine(StartMusicTrack(0));
+    }
+
+    private IEnumerator StartMusicTrack(float waitTime)
+    {
+        source.PlayOneShot(clip);
+
+        yield return null;
+    }
+
+    private IEnumerator SpawnMidiNotes()
+    {
+        float timeElapsed = 0;
+        foreach (Note note in notes)
+        {
+            float noteHitTimeInSeconds = (note.Time / TimeStepScaler);
+            float waitTime = noteHitTimeInSeconds - timeElapsed;
+
+            if (waitTime > 0)
+            {
+                yield return new WaitForSeconds(waitTime);
+                timeElapsed = noteHitTimeInSeconds;
+            }
+
+            spawner.SpawnNote(note.NoteNumber, note.Octave);
+        }
+
+        yield return null;
+    }
+
+
+
+
+
+    /*
 	// Use this for initialization
 	void Start () {
 		var midiFile = MidiFile.Read("Assets/Resources/Songs/" + songName + ".mid");
@@ -51,7 +113,7 @@ public class GameController : MonoBehaviour {
             {
                 if ((o.Time / 1000.0f) - 6.0f <= timer) //spawn blocks 6 seconds ahead of time so there is a 1 second window for if the processing is slow
                 { //this way if there's a delay in spawning the blocks they won't be out of time with the song
-                    spawner.spawnBlock(o.NoteNumber, o.Octave, (o.Time / 1000.0f));
+                    //spawner.spawnBlock(o.NoteNumber, o.Octave, (o.Time / 1000.0f));
                     notesToRemove.Add(o);
                 }
             }
@@ -73,8 +135,9 @@ public class GameController : MonoBehaviour {
         }
 
     }
+    */
 
-	public void endGame() {
+    public void endGame() {
         SceneManager.LoadSceneAsync("MainMenu");
 		SceneManager.UnloadSceneAsync ("Song");
 	}

@@ -26,10 +26,10 @@ public class AsteroidController : MonoBehaviour {
 		transform.LookAt (player.position);
 		pController = player.gameObject.GetComponent<PlayerController> ();
 		gController = player.gameObject.GetComponent<GameController>();
-        hitTime = time - gController.timer;
+        //hitTime = time - gController.timer;
         distance = Vector3.Distance(transform.position, player.position);
     }
-	
+	/*
 	// Update is called once per frame
 	void Update () {
 		if ((time - gController.timer) <= 1.0f) 
@@ -44,10 +44,10 @@ public class AsteroidController : MonoBehaviour {
 		if (time < (gController.timer + 1.0f))
 		{
 			Destroy (gameObject);
-            //Debug.Log("time out");
+            Debug.Log("time out");
         }
 	}
-
+	*/
 	void OnTriggerEnter(Collider collision)
     {
 		if (collision.gameObject.tag == "Sword") 
@@ -69,6 +69,5 @@ public class AsteroidController : MonoBehaviour {
             Destroy(gameObject);
             Destroy(collision.gameObject);
         }
-
     }
 }
