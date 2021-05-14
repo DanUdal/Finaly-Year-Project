@@ -20,10 +20,10 @@ public class Asteroid : MonoBehaviour
         _transform = transform;
     }
 
-    public void Initialise(Vector3 spawnPosition, float note, float octave)
+    public void Initialise(Vector3 spawnPosition, int note, int octave)
     {
         SetColour(octave);
-        SetBehavour();
+        SetBehavour(octave);
 
         _spawnPosition = spawnPosition;
 
@@ -31,12 +31,12 @@ public class Asteroid : MonoBehaviour
         StartCoroutine(KillNote());
     }
 
-    private void SetBehavour()
+    private void SetBehavour(int octave)
     {
-        StartCoroutine(StartTravel());
+        StartCoroutine(StartTravel(octave));
     }
 
-    private void SetColour(float octave)
+    private void SetColour(int octave)
     {
         MeshRenderer meshRenderer = GetComponent<MeshRenderer>();
         Material material = new Material(meshRenderer.material);
@@ -55,14 +55,17 @@ public class Asteroid : MonoBehaviour
 
 
 
-    private IEnumerator StartTravel()
+    private IEnumerator StartTravel(int octave)
     {
         float lifeTime = 0;
         while (Application.isPlaying)
         {
             Vector3 position = new Vector3(_spawnPosition.x, yAxisAnimationCurve.Evaluate(lifeTime), zAxisAnimationCurve.Evaluate(lifeTime));
 
-            _transform.position = position;
+            float inverseLerp = Mathf.InverseLerp(0, 7, octave);
+            Quaternion rotation = Quaternion.Lerp(Quaternion.Euler(new Vector3(0, -60, 0)), Quaternion.Euler(new Vector3(0, 60, 0)), inverseLerp);
+
+            _transform.position = rotation * position;
 
             lifeTime += Time.deltaTime;
             yield return null;
