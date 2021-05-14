@@ -47,11 +47,6 @@ public class DebugNote : MonoBehaviour
         meshRenderer.material = material;
     }
 
-    private void OnDestroy()
-    {
-        StopAllCoroutines();
-    }
-
 
 
 
@@ -73,7 +68,12 @@ public class DebugNote : MonoBehaviour
     {
         yield return new WaitForSeconds(ProjeectileSpawner.NoteDelay);
 
-        // play note sound
+        MeshRenderer meshRenderer = GetComponent<MeshRenderer>();
+        Material material = new Material(meshRenderer.material);
+
+        material.color = Color.black;
+
+        meshRenderer.material = material;
     }
 
     private IEnumerator KillNote()

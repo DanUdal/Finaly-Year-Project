@@ -8,7 +8,7 @@ using Melanchall.DryWetMidi.Interaction;
 
 public class GameController : MonoBehaviour 
 {
-    public static readonly float TimeStepScaler = 277.4667557f;
+    public static readonly float TimeStepScaler = 256f;
 
 	[SerializeField] private Scene menuScene;
 	[SerializeField] private Scene gameScene;
@@ -49,11 +49,13 @@ public class GameController : MonoBehaviour
     private void StartSong()
     {
         StartCoroutine(SpawnMidiNotes());
-        //StartCoroutine(StartMusicTrack(0));
+        StartCoroutine(StartMusicTrack(2.41f + ProjeectileSpawner.NoteDelay));
     }
 
     private IEnumerator StartMusicTrack(float waitTime)
     {
+        yield return new WaitForSeconds(waitTime);
+
         source.PlayOneShot(clip);
 
         yield return null;
